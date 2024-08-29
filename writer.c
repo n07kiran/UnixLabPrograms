@@ -8,13 +8,15 @@
 
 int main()
 {
+	printf("Writer\n");
 	char* fifo_path = "./my_fifo";
 	
 	if(mkfifo(fifo_path,0666) == -1)
 	{
-		printf("Error creating fifo file \n");
+		perror("Error creating fifo file \n");
 		return 1;
 	}
+	//printf("FIFO File created \n");
 
 	char buffer[SIZE];
 	int fd = open(fifo_path,O_WRONLY);
@@ -23,7 +25,7 @@ int main()
 		printf("Error in opening the fifo file \n");
 		return 1;
 	}
-
+	printf("Opened fifo File \n");
 	printf("Enter the message : \n");
 	scanf("%s",buffer);
 	write(fd,buffer,sizeof(buffer));
